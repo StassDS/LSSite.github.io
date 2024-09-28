@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LS</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            background-color: black; /* Полностью чёрный фон */
+        }
+
+        .screamer-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black; /* Полностью чёрный фон */
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none; /* Скрыть видео по умолчанию */
+        }
+
+        .start-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #000000;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            z-index: 10; /* Ставим кнопку выше всех элементов */
+        }
+    </style>
+</head>
+<body>
+    <div class="screamer-container">
+        <video id="screamer-video" muted playsinline>
+            <source src="screamer.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+        <button class="start-button" id="startButton">Залупа</button>
+    </div>
+
+    <script>
+        var video = document.getElementById("screamer-video");
+        var startButton = document.getElementById("startButton");
+
+        // Воспроизвести видео при нажатии на кнопку
+        startButton.addEventListener("click", function() {
+            startButton.style.display = 'none'; // Скрыть кнопку после нажатия
+            video.style.display = 'block'; // Показать видео
+            video.muted = false; // Отключить mute
+            video.volume = 1.0; // Установить максимальную громкость
+            
+            var playPromise = video.play(); // Проиграть видео
+
+            if (playPromise !== undefined) {
+                playPromise.then(function() {
+                    console.log("Воспроизведение начато!");
+                }).catch(function(error) {
+                    console.error("Ошибка воспроизведения:", error);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
